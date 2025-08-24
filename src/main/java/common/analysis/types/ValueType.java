@@ -1,0 +1,32 @@
+package common.analysis.types;
+
+import common.astnodes.ClassType;
+import common.astnodes.ListType;
+import common.astnodes.TypeAnnotation;
+
+/**
+ * A ValueType references types that are assigned to variables and
+ * expressions.
+ *
+ * In particular, ValueType can be a {@link ClassValueType} (e.g. "int") or
+ * a {@link ListValueType} (e.g. "[int]").
+ */
+
+public abstract class ValueType extends Type {
+
+    /** Returns the type corresponding to ANNOTATION. */
+    public static ValueType annotationToValueType(TypeAnnotation annotation) {
+        if (annotation instanceof ClassType) {
+            return new ClassValueType((ClassType) annotation);
+        } else {
+            assert annotation instanceof ListType;
+            return new ListValueType((ListType) annotation);
+        }
+    }
+
+    @Override
+    public boolean isValueType() {
+        return true;
+    }
+
+}
