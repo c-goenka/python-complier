@@ -29,7 +29,3 @@ Thumbs.db
 src/main/java/**/PyLangLexer.java
 src/main/java/**/PyLangParser.java
 src/main/java/**/PyLangTokens.java
-
-# Other
-CLAUDE.md
-.claude

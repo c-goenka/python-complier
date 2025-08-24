@@ -1,4 +1,4 @@
-# Python Dialect Compiler
+# Python Compiler
 
 A compiler for a dialect of Python (which I refer to as PyLang in this project), featuring lexical analysis, parsing, semantic analysis, and RISC-V code generation.
 
