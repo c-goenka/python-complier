@@ -108,7 +108,7 @@ src/
 
 1. **Clone and build:**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/c-goenka/python-complier.git
    cd python-compiler
    mvn clean package
    ```
