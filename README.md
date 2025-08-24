@@ -120,6 +120,8 @@ src/
    ```
    The web interface provides an interactive editor with examples and lets you see each compilation phase.
 
+<img width="2190" height="1240" alt="compiler-web-interface" src="https://github.com/user-attachments/assets/3ccf9bfc-ec3a-4668-be74-ca7557b9868c" />
+
 ## Testing
 
 The project includes comprehensive test suites:
