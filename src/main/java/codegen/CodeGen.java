@@ -13,9 +13,7 @@ public class CodeGen {
      * command line.
      */
     public static String process(Program program, boolean debug) {
-        /* Emit code into a ByteOutputStream, and convert to a string.
-         * If you need instructions not provided by RiscVBackend, simply
-         * use an extension of it. */
+        /* Emit code into a ByteOutputStream, and convert to a string.*/
         try {
             RiscVBackend backend = new RiscVBackend();
             CodeGenBase cgen = new CodeGenImpl(backend);

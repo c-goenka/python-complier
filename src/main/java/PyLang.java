@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 /** Main entry point for the PyLang compiler. */
 public class PyLang {
-    
+
     public static void main(String[] args) {
         if (args.length == 0) {
             System.err.println("Usage: java PyLang [options] <input.py>");
@@ -26,7 +26,7 @@ public class PyLang {
             System.err.println("  --test       Test mode (use with --dir)");
             return;
         }
-        
+
         String inputFile = null;
         String outputFile = null;
         String inputDir = null;
@@ -34,7 +34,7 @@ public class PyLang {
         boolean run = false;
         boolean debug = false;
         boolean test = false;
-        
+
         // Parse command line arguments
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("--pass=")) {
@@ -61,25 +61,25 @@ public class PyLang {
                 inputFile = args[i];
             }
         }
-        
+
         if (inputFile == null && inputDir == null) {
             System.err.println("Error: No input file or directory specified");
             return;
         }
-        
+
         if (inputDir != null) {
             // Process directory
             processDirectory(inputDir, outputFile, pass, run, debug, test);
             return;
         }
-        
+
         try {
             // Read input file
             String input = new String(Files.readAllBytes(Paths.get(inputFile)));
-            
+
             // Process single file
             processFile(inputFile, input, outputFile, pass, run, debug);
-            
+
         } catch (IOException e) {
             System.err.println("Error reading input file: " + e.getMessage());
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class PyLang {
             }
         }
     }
-    
+
     private static void processDirectory(String inputDir, String outputFile, String pass, boolean run, boolean debug, boolean test) {
         try {
             Path dirPath = Paths.get(inputDir);
@@ -97,7 +97,7 @@ public class PyLang {
                 System.err.println("Error: " + inputDir + " is not a directory");
                 return;
             }
-            
+
             // Find all .py files
             try (Stream<Path> paths = Files.walk(dirPath)) {
                 paths.filter(Files::isRegularFile)
@@ -107,18 +107,18 @@ public class PyLang {
                          try {
                              String input = new String(Files.readAllBytes(path));
                              String fileName = path.getFileName().toString();
-                             
+
                              if (test) {
                                  System.out.println("Processing: " + fileName);
                              }
-                             
+
                              String fileOutputFile = null;
                              if (outputFile != null && !test) {
                                  fileOutputFile = outputFile + "." + fileName;
                              }
-                             
+
                              processFile(fileName, input, fileOutputFile, pass, run, debug);
-                             
+
                          } catch (Exception e) {
                              System.err.println("Error processing " + path + ": " + e.getMessage());
                              if (debug) {
@@ -131,11 +131,11 @@ public class PyLang {
             System.err.println("Error reading directory: " + e.getMessage());
         }
     }
-    
+
     private static void processFile(String fileName, String input, String outputFile, String pass, boolean run, boolean debug) throws Exception {
         // Phase 1: Lexer/Parser
         Program program = Parser.process(input, debug);
-        
+
         if (pass.equals("s")) {
             // Output AST and stop
             if (outputFile != null) {
@@ -147,10 +147,10 @@ public class PyLang {
             }
             return;
         }
-        
+
         // Phase 2: Semantic Analysis
         program = Analysis.process(program, debug);
-        
+
         if (pass.equals(".s")) {
             // Output typed AST and stop
             if (outputFile != null) {
@@ -162,16 +162,16 @@ public class PyLang {
             }
             return;
         }
-        
+
         // Phase 3: Code Generation
         if (pass.equals("..s")) {
             String assembly = CodeGen.process(program, debug);
-            
+
             if (assembly == null) {
                 System.err.println("Code generation failed for " + fileName);
                 return;
             }
-            
+
             if (outputFile != null) {
                 try (PrintWriter out = new PrintWriter(outputFile)) {
                     out.print(assembly);
@@ -179,9 +179,9 @@ public class PyLang {
             } else if (!run) {
                 System.out.print(assembly);
             }
-            
+
             if (run) {
-                // Execute the assembly code (this would typically use Venus simulator)
+                // Execute the assembly code
                 System.out.println("Execution not yet implemented for " + fileName);
             }
         }

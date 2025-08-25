@@ -53,16 +53,16 @@ The compiler supports core language features:
 
 ## How It Works
 
-The compiler follows a traditional four-phase approach to compile this Python dialect:
+The compiler follows a traditional four phase approach to compile the code:
 
 ### 1. Lexical Analysis
-Uses JFlex to tokenize source code, with special handling for Python-style indentation (a key feature of Python dialects). The lexer manages INDENT/DEDENT tokens using a stack-based approach.
+Uses JFlex to tokenize source code, with special handling for Python-style indentation. The lexer manages INDENT/DEDENT tokens using a stack-based approach.
 
 ### 2. Syntax Analysis
-A CUP-generated parser builds abstract syntax trees from tokens. Includes comprehensive error recovery to handle malformed input gracefully.
+A CUP generated parser builds abstract syntax trees from tokens. Includes comprehensive error recovery to handle malformed input gracefully.
 
 ### 3. Semantic Analysis
-Four-pass analysis that builds symbol tables, validates types, and checks semantic rules:
+A Four pass analysis that builds symbol tables, validates types, and checks semantic rules:
 - **Pass 1**: Build class hierarchy
 - **Pass 2**: Create symbol tables with proper scoping
 - **Pass 3**: Validate semantic rules
@@ -98,7 +98,7 @@ src/
 - **Language**: Java 8+
 - **Build**: Maven with JFlex and CUP plugins
 - **Web Interface**: Spring Boot 2.7
-- **Parser Generator**: CUP (Constructor of Useful Parsers)
+- **Parser Generator**: CUP
 - **Lexer Generator**: JFlex
 - **Target**: RISC-V assembly
 
@@ -124,14 +124,14 @@ src/
 
 ## Testing
 
-The project includes comprehensive test suites:
+The project includes comprehensive test cases:
 
 - **Parser Tests** (`src/test/parser/`): Syntax validation and AST generation
 - **Semantic Tests** (`src/test/analyzer/`): Type checking and error detection
 - **Codegen Tests** (`src/test/codegen/`): Assembly generation and execution
 - **Benchmarks** (`src/test/benchmarks/`): Performance testing programs
 
-Run specific test suites:
+Run specific test cases:
 ```bash
 # Parser tests (33 tests)
 java -cp "target/compiler.jar" PyLang --pass=s --test --dir src/test/parser/

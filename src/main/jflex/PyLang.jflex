@@ -4,7 +4,7 @@ import java.util.*;
 
 %%
 
-/*** Do not change the flags below unless you know what you are doing. ***/
+/*** Do not change the flags below ***/
 
 %unicode
 %line
@@ -19,7 +19,7 @@ import java.util.*;
 
 %eofclose false
 
-/*** Do not change the flags above unless you know what you are doing. ***/
+/*** Do not change the flags above ***/
 
 /* The following code section is copied verbatim to the
  * generated lexer class. */
@@ -60,7 +60,7 @@ import java.util.*;
 
     indent_lvl.push(0);
     curr_indent = 0;
-    
+
 %init}
 
 /* for dedent and end of file */
@@ -121,7 +121,7 @@ InputCharacter = [^\r\n]
 }
 
 <INPUT_CHARACTER> {
-  
+
 /* Keywords */
     "False"                     { return symbol(PyLangTokens.FALSE); }
     "None"                      { return symbol(PyLangTokens.NONE); }
@@ -164,7 +164,7 @@ InputCharacter = [^\r\n]
 
 /* Delimiters. */
     {LineBreak}                 {  curr_indent = 0;
-                                    yybegin(YYINITIAL); 
+                                    yybegin(YYINITIAL);
                                     return symbol(PyLangTokens.NEWLINE); }
 
 /* Literals. */
